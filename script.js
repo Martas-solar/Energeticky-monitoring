@@ -20,7 +20,7 @@
     <script>
     async function fetchData() {
         try {
-            const response = await fetch('https://github.com/Martas-solar/Energeticky-monitoring/blob/main/Sesit.csv');
+            const response = await fetch('https://github.com/Martas-solar/Energeticky-monitoring/Sesit.csv');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
