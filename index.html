@@ -5,34 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energetický Monitoring</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="box">
             <div class="icon">🌞</div>
-            <div>FTV Napětí: 0,1 V<br>FTV Proud: 0 A<br>Celková Výroba: 36,8 kW<br>Aktuální Výkon: 0 W</div>
+            <div>
+                <p>FTV Napětí: <span id="ftvNapeti">0,1 V</span></p>
+                <p>FTV Proud: <span id="ftvProud">0 A</span></p>
+                <p>Celková Výroba: <span id="celkovaVyroba">36,8 kW</span></p>
+                <p>Aktuální Výkon: <span id="aktualniVykon">0 W</span></p>
+            </div>
         </div>
         <div class="box">
             <div class="icon">🏠</div>
-            <div>Napětí Sítě: 229 V<br>Frekvence: 50 Hz<br>Výpadek Sítě: Ne<br>Celková Spotřeba: 28,0 kW<br>Spotřeba Sítě: 10 W</div>
+            <div>
+                <p>Napětí Sítě: <span id="napetiSite">229 V</span></p>
+                <p>Frekvence: <span id="frekvence">50 Hz</span></p>
+                <p>Výpadek Sítě: <span id="vypadekSite">Ne</span></p>
+                <p>Celková Spotřeba: <span id="celkovaSpotreba">28,0 kW</span></p>
+                <p>Spotřeba Sítě: <span id="spotrebaSite">10 W</span></p>
+            </div>
         </div>
         <div class="box">
             <div class="icon">🔋</div>
-            <div>Napětí Baterie: 27,0 V<br>Kapacita: 100 %<br>Nabíjení: 0 A<br>Vybijení: 0 A<br>Celkový Výkon: 0 W</div>
+            <div>
+                <p>Napětí Baterie: <span id="napetiBaterie">27,0 V</span></p>
+                <p>Kapacita: <span id="kapacita">100 %</span></p>
+                <p>Nabíjení: <span id="nabijeni">0 A</span></p>
+                <p>Vybijení: <span id="vybijeni">0 A</span></p>
+                <p>Celkový Výkon: <span id="celkovyVykon">0 W</span></p>
+            </div>
         </div>
         <div class="box">
             <div class="icon">💡</div>
-            <div>Výstup Sítě: 229 V<br>Frekvence: 50 Hz<br>Zatížení: 0,7 %<br>Celková Výroba: 42,8 kW<br>Výkon Střídače: 0 W</div>
+            <div>
+                <p>Výstup Sítě: <span id="vystupSite">229 V</span></p>
+                <p>Frekvence: <span id="frekvenceVystup">50 Hz</span></p>
+                <p>Zatížení: <span id="zatezovani">0,7 %</span></p>
+                <p>Celková Výroba: <span id="celkovaVyrobaVystup">42,8 kW</span></p>
+                <p>Výkon Střídače: <span id="vykonStridace">0 W</span></p>
+            </div>
         </div>
         <div class="box">
-            <div class="date">1. srpna</div>
-            <div class="status">Line Mode</div>
+            <p class="date">1. srpna</p>
+            <p class="status">Line Mode</p>
         </div>
         <div class="box">
-            <div class="weather">🌞 77 %<br>23 °C 22 °C</div>
-            <div>Solární Výroba: 13 h 50 m<br>1,53 kW</div>
-            <div>Síťové napájení: 10 h 10 m<br>0,4 kW</div>
+            <p class="weather">🌞 77 %<br>23 °C 22 °C</p>
+            <p>Solární Výroba: <span id="solarniVyroba">13 h 50 m</span><br><span id="solarniVyrobaKw">1,53 kW</span></p>
+            <p>Síťové napájení: <span id="siteNapajeni">10 h 10 m</span><br><span id="siteNapajeniKw">0,4 kW</span></p>
         </div>
     </div>
 </body>
 </html>
+
