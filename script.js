@@ -1,7 +1,12 @@
 async function fetchData() {
     try {
+        // Načítání CSV souboru z URL
         const response = await fetch('http://localhost:8080/Sesit.csv');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.text();
+        console.log('CSV Data:', data); // Debugování: zobrazí data CSV souboru
         return parseCSV(data);
     } catch (error) {
         console.error('Chyba při načítání dat:', error);
@@ -9,28 +14,44 @@ async function fetchData() {
 }
 
 function parseCSV(data) {
-    const lines = data.split('\n');
+    // Rozdělení dat na řádky
+    const lines = data.split('\n').filter(line => line.trim() !== ''); // Odstranění prázdných řádků
+    if (lines.length < 2) {
+        console.error('CSV soubor nemá dostatek dat.');
+        return {};
+    }
+    
+    // Rozdělení prvního řádku na záhlaví a druhého řádku na hodnoty
     const headers = lines[0].split(',');
     const values = lines[1].split(',');
     
+    // Vytvoření objektu s hodnotami
     const result = {};
     headers.forEach((header, index) => {
-        result[header.trim()] = values[index].trim();
+        result[header.trim()] = values[index] ? values[index].trim() : ''; // Ošetření možného undefined
     });
+    
+    console.log('Parsed Data:', result); // Debugování: zobrazí zpracovaná data
     return result;
 }
 
 function updateUI(data) {
-    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'];
-    document.getElementById('ftvProud').innerText = data['FVT Proud'];
-    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'];
-    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'];
+    // Aktualizace HTML elementů na základě načtených dat
+    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'] || 'N/A';
+    document.getElementById('ftvProud').innerText = data['FVT Proud'] || 'N/A';
+    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'] || 'N/A';
+    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'] || 'N/A';
     // Další aktualizace hodnot
 }
 
 async function init() {
+    // Načítání dat a aktualizace UI
     const data = await fetchData();
-    updateUI(data);
+    if (data) {
+        updateUI(data);
+    }
 }
 
-setInterval(init, 5000);  // Aktualizace každých 5 sekund
+// Inicializace a aktualizace každých 5 sekund
+setInterval(init, 5000);
+
