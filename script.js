@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:8000/nazev_souboru.csv');
+        const response = await fetch('http://localhost:8080/Sesit.csv');
         const data = await response.text();
         return parseCSV(data);
     } catch (error) {
