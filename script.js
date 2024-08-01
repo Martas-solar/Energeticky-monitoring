@@ -1,12 +1,33 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energetický Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <p>FTV Napětí: <span id="ftvNapeti">0,0 V</span></p>
+            <p>FVT Proud: <span id="ftvProud">0 A</span></p>
+            <p>Celková Výroba: <span id="celkovaVyroba">36,8 kW</span></p>
+            <p>Aktuální Výkon: <span id="aktualniVykon">0 W</span></p>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
 async function fetchData() {
     try {
-        // Načítání CSV souboru z URL
-        const response = await fetch(''http://127.0.0.1:8080/Sesit.csv'');
+        const response = await fetch('http://127.0.0.1:8080/Sesit.csv');
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.text();
-        console.log('CSV Data:', data); // Debugování: zobrazí data CSV souboru
+        console.log('CSV Data:', data); // Přidáno pro debugování
         return parseCSV(data);
     } catch (error) {
         console.error('Chyba při načítání dat:', error);
@@ -14,44 +35,34 @@ async function fetchData() {
 }
 
 function parseCSV(data) {
-    // Rozdělení dat na řádky
-    const lines = data.split('\n').filter(line => line.trim() !== ''); // Odstranění prázdných řádků
-    if (lines.length < 2) {
-        console.error('CSV soubor nemá dostatek dat.');
-        return {};
-    }
-    
-    // Rozdělení prvního řádku na záhlaví a druhého řádku na hodnoty
+    const lines = data.split('\n');
     const headers = lines[0].split(',');
     const values = lines[1].split(',');
-    
-    // Vytvoření objektu s hodnotami
+
     const result = {};
     headers.forEach((header, index) => {
         result[header.trim()] = values[index] ? values[index].trim() : ''; // Ošetření možného undefined
     });
-    
-    console.log('Parsed Data:', result); // Debugování: zobrazí zpracovaná data
+
+    console.log('Parsed Data:', result); // Přidáno pro debugování
     return result;
 }
 
 function updateUI(data) {
-    // Aktualizace HTML elementů na základě načtených dat
-    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'] || 'N/A';
-    document.getElementById('ftvProud').innerText = data['FVT Proud'] || 'N/A';
-    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'] || 'N/A';
-    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'] || 'N/A';
+    console.log('Updating UI with data:', data); // Přidáno pro debugování
+    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'];
+    document.getElementById('ftvProud').innerText = data['FVT Proud'];
+    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'];
+    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'];
     // Další aktualizace hodnot
 }
 
 async function init() {
-    // Načítání dat a aktualizace UI
     const data = await fetchData();
     if (data) {
         updateUI(data);
     }
 }
 
-// Inicializace a aktualizace každých 5 sekund
-setInterval(init, 5000);
-
+setInterval(init, 5000);  // Aktualizace každých 5 sekund
+</script>
