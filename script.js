@@ -36,4 +36,4 @@ async function init() {
     updateUI(data);
 }
 
-setInterval(init, 5000);  // Aktualizace každých 5 sekund
+setInterval(init, 30000);  // Aktualizace každých 5 sekund
