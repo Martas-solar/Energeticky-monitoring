@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch('https://github.com/Martas-solar/Energeticky-monitoring/blob/main/Sesit.csv');
+        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
