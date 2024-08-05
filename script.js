@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv');
+        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv' + '?_=' + new Date().getTime());
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -28,7 +28,7 @@ function updateUI(data) {
     document.getElementById('ftvProud').innerText = data['FTV Proud'] || 'N/A';
     document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'] || 'N/A';
     document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'] || 'N/A';
-    // Další aktualizace hodnot
+    // Další aktualizace hodnot, pokud máte další prvky, které potřebují data
 }
 
 async function init() {
@@ -39,7 +39,7 @@ async function init() {
     }
 }
 
-setInterval(init, 30000);  // Aktualizace každých 30 sekund
+setInterval(init, 5000);  // Aktualizace každých 5 sekund
 
 // Zavolejte init při načtení stránky
 init();
