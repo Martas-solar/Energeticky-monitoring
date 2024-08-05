@@ -13,27 +13,33 @@ async function fetchData() {
 
 function parseCSV(data) {
     const lines = data.split('\n');
-    const headers = lines[0].split(',');
-    const values = lines[1].split(',');
+    const headers = lines[0].split(';');
+    const values = lines[1].split(';');
 
     const result = {};
     headers.forEach((header, index) => {
-        result[header.trim()] = values[index].trim();
+        result[header.trim()] = values[index] ? values[index].trim() : '';
     });
     return result;
 }
 
 function updateUI(data) {
-    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'];
-    document.getElementById('ftvProud').innerText = data['FVT Proud'];
-    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'];
-    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'];
+    document.getElementById('ftvNapeti').innerText = data['FTV Napětí'] || 'N/A';
+    document.getElementById('ftvProud').innerText = data['FTV Proud'] || 'N/A';
+    document.getElementById('celkovaVyroba').innerText = data['Celková Výroba'] || 'N/A';
+    document.getElementById('aktualniVykon').innerText = data['Aktuální Výkon'] || 'N/A';
     // Další aktualizace hodnot
 }
 
 async function init() {
     const data = await fetchData();
-    updateUI(data);
+    console.log(data); // Pro kontrolu
+    if (data) {
+        updateUI(data);
+    }
 }
 
-setInterval(init, 30000);  // Aktualizace každých 5 sekund
+setInterval(init, 30000);  // Aktualizace každých 30 sekund
+
+// Zavolejte init při načtení stránky
+init();
