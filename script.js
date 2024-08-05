@@ -1,10 +1,15 @@
 async function fetchData() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv' + '?_=' + new Date().getTime());
+        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv' + '?_=' + new Date().getTime(), {
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.text();
+        console.log('Fetched data:', data); // Pro kontrolu
         return parseCSV(data);
     } catch (error) {
         console.error('Chyba při načítání dat:', error);
@@ -20,6 +25,7 @@ function parseCSV(data) {
     headers.forEach((header, index) => {
         result[header.trim()] = values[index] ? values[index].trim() : '';
     });
+    console.log('Parsed data:', result); // Pro kontrolu
     return result;
 }
 
@@ -33,7 +39,6 @@ function updateUI(data) {
 
 async function init() {
     const data = await fetchData();
-    console.log(data); // Pro kontrolu
     if (data) {
         updateUI(data);
     }
