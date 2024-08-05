@@ -1,8 +1,8 @@
 async function fetchData() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/Martas-solar/Energeticky-monitoring/main/Sesit.csv' + '?_=' + new Date().getTime(), {
+        const response = await fetch('https://api.github.com/repos/Martas-solar/Energeticky-monitoring/contents/Sesit.csv', {
             headers: {
-                'Cache-Control': 'no-cache'
+                'Accept': 'application/vnd.github.v3.raw'
             }
         });
         if (!response.ok) {
